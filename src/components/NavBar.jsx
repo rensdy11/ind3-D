@@ -1,47 +1,92 @@
-import { useState } from "react";
-import { navLinks } from "../index.js";
-
-const NavItems = () => {
-    return (
-        <ul className="flex flex-col sm:flex-row sm:space-x-4 space-y-2 sm:space-y-0">
-            {navLinks.map(({ id, href, name }) => (
-                <li key={id} className="nav-li">
-                    <a href={href} className="nav-li_a"
-                    onClick={()=>{}}>    
-                        {name}
-                    </a>
-                </li>
-            ))}
-        </ul>
-    );
-};
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const toggleMenu = () => setIsOpen((prevIsOpen) => !prevIsOpen);
+  const [isOpen, setIsOpen] = useState(false);
 
-    return (
-        <header className="text-blue-600 fixed top-0 left-0 right-0 z-50 bg-black/90">
-            <div className="max-w-7xl mx-auto">
-                <div className="flex justify-between items-center py-5 mx-auto">
-                    <a href='/' className="text-neutral-400 font-bold text-xl hover:text-white transition-colors">
-                        Indy's IN3D Canvas
-                    </a>
-                    <button onClick={toggleMenu} className="text-neutral-400 hover:text-white focus:outline-none sm:hidden flex" aria-label={isOpen ? "Close menu" : "Open menu"}>
-                        <img src={isOpen ? "/assets/close.svg" : "/assets/menu.svg"} alt="toggle" className="w-6 h-6 block" />
-                    </button>
-                    <nav className="hidden sm:flex">
-                        <NavItems />
-                    </nav>
-                </div>
-            </div>
-            <div className={`sm:hidden overflow-hidden transition-all duration-300 ease-in-out nav-sidebar ${isOpen ? 'max-h-screen' : 'max-h-0'}`}>
-                <nav className="p-5"> 
-                    <NavItems />
-                </nav>
-            </div>
-        </header>
-    ); 
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <nav className="bg-gray-900 shadow-md">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="flex justify-between items-center h-16">
+          <Link to="/" className="text-2xl font-bold text-blue-600">
+            IN3D 
+          </Link>
+          <div className="flex md:hidden">
+            <button
+              onClick={toggleMenu}
+              className="text-blue-500 hover:text-blue-600 focus:outline-none"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <div className="hidden md:flex space-x-4">
+            <Link
+              to="/about"
+              className="text-blue-700 hover:text-amber-400 px-3 py-2 rounded-md text-sm font-medium"
+            >
+              About
+            </Link>
+            <Link
+              to="/work"
+              className="text-blue-700 hover:text-amber-400 px-3 py-2 rounded-md text-sm font-medium"
+            >
+              Work
+            </Link>
+            <Link
+              to="/contact"
+              className="text-blue-700 hover:text-amber-400 px-3 py-2 rounded-md text-sm font-medium"
+            >
+              Contact
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div className={`${isOpen ? "block" : "hidden"} md:hidden`}>
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <Link
+            to="/about"
+            className="block text-blue-700 hover:text-amber-400 px-3 py-2 rounded-md text-base font-medium"
+            onClick={() => setIsOpen(false)}
+          >
+            About
+          </Link>
+          <Link
+            to="/work"
+            className="block text-blue-700 hover:text-amber-400 px-3 py-2 rounded-md text-base font-medium"
+            onClick={() => setIsOpen(false)}
+          >
+            Work
+          </Link>
+          <Link
+            to="/contact"
+            className="block text-blue-700 hover:text-amber-400 px-3 py-2 rounded-md text-base font-medium"
+            onClick={() => setIsOpen(false)}
+          >
+            Contact
+          </Link>
+        </div>
+      </div>
+    </nav>
+  );
 };
 
 export default NavBar;

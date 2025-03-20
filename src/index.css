@@ -1,2 +1,14 @@
 @import "tailwindcss";
 
+@font-face {
+    font-family:Carrois;
+    src: url("../public/assets/fonts/CarroisGothicSC-Regular.ttf")
+}
+
+@theme{
+    --font-carrois: Carrois,"sans-serif";
+}
+
+.glow-text {
+    text-shadow: 10 0 10px rgba(59, 130, 246, 0.8), 0 0 20px rgba(8, 51, 120, 0.8), 0 0 30px rgba(181, 183, 62, 0.8);
+  }
